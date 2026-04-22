@@ -1,0 +1,30 @@
+<div>
+  <div class="card p-3">
+    <div class="d-flex flex-wrap flex-row justify-content-around gap-4">
+      <div *ngIf="isLoading$ | async">
+        <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
+      </div>
+      <ng-container *ngFor="let counter of (counterData$ | async)">
+        <ng-container *ngIf="counter.link; else countersSectionContent">
+          <a class="text-decoration-none" *ngIf="internalLinkService.isLinkInternal(counter.link)" [routerLink]="internalLinkService.getRelativePath(counter.link)">
+            <ng-container *ngTemplateOutlet="countersSectionContent"></ng-container>
+          </a>
+          <a class="text-decoration-none" *ngIf="!internalLinkService.isLinkInternal(counter.link)" [href]="counter.link" [target]="'_blank'">
+            <ng-container *ngTemplateOutlet="countersSectionContent"></ng-container>
+          </a>
+        </ng-container>
+        <ng-template #countersSectionContent>
+          <div class="d-flex flex-wrap flex-column justify-content-between align-items-center gapy-1 counters-section">
+            <i class="d-block mb-2" [ngClass]="counter.icon"></i>
+            <div class="counters-label text-center">
+              {{ 'explore.counters-section.' + counter.label | translate }}
+            </div>
+            <div class="text-center font-weight-bold">
+              <b>{{ counter.count }}</b>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div>

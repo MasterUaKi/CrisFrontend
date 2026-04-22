@@ -1,0 +1,20 @@
+rest:
+  ssl: false
+  host: 131.173.86.86
+  port: 8080
+  nameSpace: /server
+
+ui:
+  ssl: false
+  host: 131.173.86.86
+  port: 4100
+  # NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
+  nameSpace: /
+  # The rateLimiter settings limit each IP to a 'max' of 500 requests per 'windowMs' (1 minute).
+  rateLimiter:
+    windowMs: 60000 # 1 minute
+    max: 500 # limit each IP to 500 requests per windowMs
+  # Trust X-FORWARDED-* headers from proxies (default = true)
+  useProxies: true
+
+# Angular Server Side Rendering (SSR) settings
